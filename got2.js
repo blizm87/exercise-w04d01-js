@@ -14,21 +14,48 @@ var kings = [
 //     using a new `hailTo` function and the `forEach` method:
 //     "Long live King [name] of House [house]!" (five times...)
 console.log("Number 1:");
-
+var hail = function(name, house){
+  return 'Long live King ' + name + ' of House ' + house + '!';
+}
+kings.forEach(function(king){
+  console.log(hail(king.name, king.house));
+});
 // 2.  Now we must be sure to print the correct salute... For a "king" not on
 //     the Iron Throne we must write a function `declaim` that returns the line:
 //     "Woe be to the pretender [name] of the house [house]..."
 console.log("Number 2:");
-
+var declaim = function(name, house){
+  return 'Woe be to the pretender ' + name + ' of the house ' + house + '.';
+}
+kings.forEach(function(king){
+  if (king.ironThrone === false){
+    console.log(declaim(king.name, king.house));
+  }
+})
 // 3.  Now we must hail all of the kings. Give a true hail only to the king on
 //     the Iron Throne (where ironThrone is true), but not the others; instead we
 //     must declaim them.
 console.log("Number 3:");
-
+kings.forEach(function(king){
+  if(king.ironThrone === true){
+    console.log(hail(king.name, king.house));
+  } else {
+      console.log(declaim(king.name, king.house));
+    }
+})
 // 4.  Write a function expression named `kneel` that prints:
 //     "The [king/pretender] [name] of house [house] must kneel!"
 console.log("Number 4:");
+function kneel(name, house){
+  return 'The pretender ' + name + ' of house ' + house + ' must kneel!';
+}
+kings.forEach(function(king){
+  if(king.ironThrone === true){
 
+  } else {
+      console.log(kneel(king.name, king.house));
+    }
+})
 
 // 5.  Finally, the struggle begins: Loop over the list of kings, either hailing
 //     or declaiming them as above (depending if they are on the Iron Throne);
@@ -39,7 +66,39 @@ console.log("Number 4:");
 //     the list) is now placed upon it (their ironThrone property is set to
 //     true).
 console.log("Number 5:");
+var reduce = function (array){
+  var rand = Math.floor(Math.random() * array.length);
+  console.log(rand);
+  var removed = array.splice(rand,1);
+  console.log(removed);
+  if(array[0].ironThrone === false){
+    array[0].ironThrone = true;
+  }
+  kings.forEach(function(king){
+    if(king.ironThrone === true){
 
+    } else {
+        console.log(kneel(king.name, king.house));
+      }
+  });
+}
+var kingCheck = function(array){
+    array.forEach(function(king){
+      if(king.ironThrone === true){
+        console.log(hail(king.name, king.house));
+      } else {
+         console.log(declaim(king.name, king.house));
+        }
+    })
+}
+var theStruggle = function(array){
+  while(array.length > 1){
+    kingCheck(array);
+    reduce(array);
+  }
+  kingCheck(array);
+}
+theStruggle(kings);
 /* STEP 1: "PLAIN-ENGLISH" PSEUDO-CODE. Explain what must happen. */
 
 
